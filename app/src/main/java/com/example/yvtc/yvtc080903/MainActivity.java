@@ -13,15 +13,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import static com.example.yvtc.yvtc080903.R.id.imageView;
 
 public class MainActivity extends AppCompatActivity {
     RequestQueue queue;
-
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        img = (ImageView) findViewById(imageView);
         queue = Volley.newRequestQueue(MainActivity.this);
 
     }
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        ImageView img = (ImageView) findViewById(R.id.imageView);
+
                         img.setImageBitmap(response);
                     }
                 }, 0, 0, ImageView.ScaleType.FIT_CENTER, Bitmap.Config.RGB_565, new Response.ErrorListener() {
@@ -42,5 +46,10 @@ public class MainActivity extends AppCompatActivity {
         });
         queue.add(request);
         queue.start();
+    }
+    public void click2(View v)
+    {
+        Picasso.with(MainActivity.this)
+                .load("http://images.meredith.com/content/dam/bhg/Images/2006/03/SIP943899.jpg.rendition.largest.jpg").into(img);
     }
 }
